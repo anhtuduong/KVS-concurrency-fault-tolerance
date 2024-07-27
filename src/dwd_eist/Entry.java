@@ -32,6 +32,7 @@ public class Entry {
      */
     public Optional<Double> calculateAverage(int numberOfHours) {
         // TODO 1.1.
+        
     	throw new UnsupportedOperationException("Not yet implemented.");
     }
 

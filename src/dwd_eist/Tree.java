@@ -1,6 +1,8 @@
 package dwd_eist;
 
 
+import java.util.List;
+
 public class Tree {
     // Data stored in the node:
     private Entry entry;
@@ -22,6 +24,7 @@ public class Tree {
 
     public void putTemperature(int stationId, double temperature) {
         // TODO: part 2.1.
+
     	throw new UnsupportedOperationException("Not yet implemented.");
     }
 
