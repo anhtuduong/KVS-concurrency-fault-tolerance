@@ -24,18 +24,46 @@ public class Tree {
 
     public void putTemperature(int stationId, double temperature) {
         // TODO: part 2.1.
-
-    	throw new UnsupportedOperationException("Not yet implemented.");
+        if (stationId < entry.getId()) {
+            if (leftChild == null) {
+                leftChild = new Tree(stationId);
+            }
+            leftChild.putTemperature(stationId, temperature);
+        } else if (stationId > entry.getId()) {
+            if (rightChild == null) {
+                rightChild = new Tree(stationId);
+            }
+            rightChild.putTemperature(stationId, temperature);
+        } else {
+            entry.addTemperature(temperature);
+        }
     }
 
     public Tree getTreeNode(int stationId) {
         // TODO: part 2.2.
-    	throw new UnsupportedOperationException("Not yet implemented.");
+        if (entry.getId() == stationId) {
+            return this;
+        }
+        if (stationId < entry.getId()) {
+            return leftChild != null ? leftChild.getTreeNode(stationId) : null;
+        } else {
+            return rightChild != null ? rightChild.getTreeNode(stationId) : null;
+        }
     }
 
     public Tree getParentNode(int stationId) {
         // TODO: part 2.3.
-    	throw new UnsupportedOperationException("Not yet implemented.");
+        if (leftChild != null && leftChild.getId() == stationId) {
+            return this;
+        }
+        if (rightChild != null && rightChild.getId() == stationId) {
+            return this;
+        }
+        if (stationId < entry.getId()) {
+            return leftChild != null ? leftChild.getParentNode(stationId) : null;
+        } else {
+            return rightChild != null ? rightChild.getParentNode(stationId) : null;
+        }
     }
 
     /**

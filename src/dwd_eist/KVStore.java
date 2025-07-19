@@ -24,17 +24,32 @@ public class KVStore {
 
     public void putTemperature(int stationId, double temperature) throws InterruptedException {
         // TODO 3.1.
-        throw new UnsupportedOperationException("Not yet implemented.");
+        rwLock.lockWriteLock();
+        try {
+            unsafePutTemperature(stationId, temperature);
+        } finally {
+            rwLock.unlockWriteLock();
+        }
     }
 
     public Optional<Double> getAverage(int stationId, int numberOfHours) throws InterruptedException {
     	// TODO part 3.2.
-        throw new UnsupportedOperationException("Not yet implemented.");
+        rwLock.lockReadLock();
+        try {
+            return unsafeGetAverage(stationId, numberOfHours);
+        } finally {
+            rwLock.unlockReadLock();
+        }
     }
 
     public Optional<Double> getAverageParent(int stationId, int numberOfHours) throws InterruptedException {
         // TODO part 3.3.
-        throw new UnsupportedOperationException("Not yet implemented.");
+        rwLock.lockReadLock();
+        try {
+            return unsafeGetAverageParent(stationId, numberOfHours);
+        } finally {
+            rwLock.unlockReadLock();
+        }
     }
 
     /**

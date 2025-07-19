@@ -32,8 +32,17 @@ public class Entry {
      */
     public Optional<Double> calculateAverage(int numberOfHours) {
         // TODO 1.1.
-        
-    	throw new UnsupportedOperationException("Not yet implemented.");
+        if (numberOfHours <= 0 || values.isEmpty()) {
+            return Optional.empty();
+        }
+
+        int count = Math.min(numberOfHours, values.size());
+        double sum = 0;
+        for (int i = 0; i < count; i++) {
+            sum += values.get(i);
+        }
+
+        return Optional.of(sum / count);
     }
 
     /**

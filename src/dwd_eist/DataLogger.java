@@ -61,9 +61,16 @@ public class DataLogger extends Thread {
                 double measurement = this.station.getNextMeasurement(); 
                 if (measurement < 0) { // this branch is only taken when the station fails (part 4)
                     // TODO part 4
+                    store.getAverageParent(stationID, 1).ifPresent(value -> {
+                        try {
+                            store.putTemperature(stationID, value);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    });
                 } else {
                     // TODO: Insert value into KVStore store.
-                    throw new InterruptedException("Not implemented yet");
+                    store.putTemperature(stationID, measurement);
                 }
             } catch (InterruptedException ex) {
                 Logger.getLogger(Logger.class.getName()).log(Level.SEVERE, null, ex);
