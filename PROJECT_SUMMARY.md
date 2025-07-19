@@ -68,7 +68,3 @@ The project is a good example of object-oriented principles:
 - **Encapsulation:** The `KVStore` encapsulates the `Tree` data structure and the `ReadWriteLockDWD`, hiding the complexity of the data storage and synchronization from the client threads (`DataLogger` and `Agency`).
 - **Abstraction:** The `KVStore` provides a simple, high-level API (`putTemperature`, `getAverage`) that is easy for the clients to use.
 - **Separation of Concerns:** Each class has a well-defined responsibility, making the system easier to understand, maintain, and extend.
-
-## 4. Conclusion
-
-This project provides a practical and engaging way to learn about fundamental computer science concepts. By building a simulated real-world system, students can see the interplay between data structures, concurrency, and system design. The key takeaways are the importance of choosing the right data structure for the job, the necessity of synchronization in concurrent systems, and the value of designing for fault tolerance.
