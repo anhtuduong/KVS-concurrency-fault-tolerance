@@ -32,16 +32,20 @@ public class Entry {
      */
     public Optional<Double> calculateAverage(int numberOfHours) {
         // TODO 1.1.
+        // If the number of hours is not positive or there are no values, we cannot calculate an average.
         if (numberOfHours <= 0 || values.isEmpty()) {
             return Optional.empty();
         }
 
+        // Determine the number of values to average. It's the smaller of the requested number of hours and the actual number of available values.
         int count = Math.min(numberOfHours, values.size());
         double sum = 0;
+        // Sum the most recent values. Since new values are added to the front of the list, we iterate from the beginning.
         for (int i = 0; i < count; i++) {
             sum += values.get(i);
         }
 
+        // Calculate and return the average, wrapped in an Optional.
         return Optional.of(sum / count);
     }
 

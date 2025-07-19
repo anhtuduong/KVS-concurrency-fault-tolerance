@@ -59,17 +59,24 @@ public class DataLogger extends Thread {
         while (keepRunning.get() && numberOfMeasurements.incrementAndGet() <= App.TOTAL_NUMBER_OF_MEASUREMENTS) {
             try {
                 double measurement = this.station.getNextMeasurement(); 
+                // A negative measurement indicates a station failure.
                 if (measurement < 0) { // this branch is only taken when the station fails (part 4)
                     // TODO part 4
+                    // In case of a failure, we implement a fault-tolerance mechanism.
+                    // We try to get the latest value from the parent station in the tree.
+                    // We ask for the average of the last 1 value, which is just the latest value.
                     store.getAverageParent(stationID, 1).ifPresent(value -> {
                         try {
+                            // If a parent value is present, we use it for the current station.
                             store.putTemperature(stationID, value);
                         } catch (InterruptedException e) {
+                            // Restore the interrupted status.
                             Thread.currentThread().interrupt();
                         }
                     });
                 } else {
                     // TODO: Insert value into KVStore store.
+                    // If the measurement is valid, store it in the KVStore.
                     store.putTemperature(stationID, measurement);
                 }
             } catch (InterruptedException ex) {

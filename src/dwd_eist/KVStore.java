@@ -24,30 +24,39 @@ public class KVStore {
 
     public void putTemperature(int stationId, double temperature) throws InterruptedException {
         // TODO 3.1.
+        // Acquire the write lock to ensure exclusive access for modification.
         rwLock.lockWriteLock();
         try {
+            // Call the unsafe method to perform the actual operation.
             unsafePutTemperature(stationId, temperature);
         } finally {
+            // Always release the lock in a finally block to prevent deadlocks.
             rwLock.unlockWriteLock();
         }
     }
 
     public Optional<Double> getAverage(int stationId, int numberOfHours) throws InterruptedException {
     	// TODO part 3.2.
+        // Acquire the read lock. Multiple threads can acquire this lock simultaneously.
         rwLock.lockReadLock();
         try {
+            // Call the unsafe method to perform the actual read operation.
             return unsafeGetAverage(stationId, numberOfHours);
         } finally {
+            // Always release the lock in a finally block.
             rwLock.unlockReadLock();
         }
     }
 
     public Optional<Double> getAverageParent(int stationId, int numberOfHours) throws InterruptedException {
         // TODO part 3.3.
+        // Acquire the read lock for safe concurrent reading.
         rwLock.lockReadLock();
         try {
+            // Call the unsafe method to get the parent's data.
             return unsafeGetAverageParent(stationId, numberOfHours);
         } finally {
+            // Always release the lock.
             rwLock.unlockReadLock();
         }
     }
